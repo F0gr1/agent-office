@@ -1,0 +1,564 @@
+/* The existing light palette remains the default. Keep dark surfaces in one layer. */
+:root {
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #171e1a;
+  --panel: #222d26;
+  --ink: #e9f0e7;
+  --muted: #b1c2b1;
+  --line: #425347;
+  --sage: #344b3b;
+  --green: #a7d2ae;
+  --mint: #293e30;
+  --coral: #f2b49d;
+  --shadow: 0 12px 42px #0b130d66;
+  background: var(--paper);
+}
+:root[data-theme='dark'] .project-setup-fields .project-scope {
+  background: #293e30;
+  color: var(--muted);
+}
+
+.theme-toggle {
+  min-height: 36px;
+  padding: 7px 11px;
+  border: 1px solid #d9e4d5;
+  border-radius: 999px;
+  background: #f5f9f1;
+  color: #42634a;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.theme-toggle:hover {
+  background: #e8f1e4;
+}
+.theme-toggle[aria-pressed='true'] {
+  border-color: #8caf91;
+  box-shadow: inset 0 0 0 1px #8caf91;
+}
+@media (max-width: 510px) {
+  .topbar > span:first-child {
+    display: none;
+  }
+  .topbar-right {
+    margin-left: auto;
+    gap: 5px;
+  }
+  .theme-toggle {
+    padding-inline: 8px;
+  }
+  .topbar-right #today-label {
+    display: none;
+  }
+}
+
+:root[data-theme='dark'] :is(.sidebar, .detail-panel) {
+  background: #1d2921;
+  border-color: var(--line);
+}
+:root[data-theme='dark'] :is(.topbar, .rail-footer, .model-row, .activity-list li, .result-task) {
+  border-color: var(--line);
+}
+:root[data-theme='dark']
+  :is(
+    .topbar,
+    .rail-label,
+    .brand-copy small,
+    .nav-shortcut,
+    .history-item-meta,
+    .rail-footer small,
+    .activity-run-label,
+    .detail-top,
+    .detail-role-index,
+    .detail-title,
+    .detail-mini-heading,
+    .model-row span
+  ) {
+  color: var(--muted);
+}
+:root[data-theme='dark']
+  :is(
+    .rail-nav a,
+    .history-empty,
+    .event-time,
+    .event-message,
+    .detail-description,
+    .detail-assignment,
+    .followup-note,
+    .workflow-note,
+    .results-intro,
+    .results-empty,
+    .result-task-preview,
+    .result-task-meta,
+    .project-scope,
+    .mode-explainer,
+    .form-message,
+    .office-world-guide,
+    .settings-dialog-v2 small,
+    .settings-dialog-v2 .settings-field-hint
+  ) {
+  color: #bacbbb;
+}
+:root[data-theme='dark'] :is(.rail-nav a:hover, .history-item:hover) {
+  background: #304336;
+}
+:root[data-theme='dark'] .project-scope {
+  background: #293e30;
+  border-color: #8db699;
+}
+:root[data-theme='dark'] :is(.rail-nav a.active, .history-item.selected) {
+  background: #354c3b;
+  color: #eff9ed;
+  border-color: #7bb289;
+}
+:root[data-theme='dark']
+  :is(
+    .count-badge,
+    .workspace-identity,
+    .workspace-icon,
+    .motion-toggle,
+    .theme-toggle,
+    #open-settings,
+    .secondary-button,
+    .followup-button,
+    .followup-close,
+    .result-copy,
+    .result-copy-feedback
+  ) {
+  background: #304537;
+  border-color: #668873;
+  color: #e3f3df;
+}
+:root[data-theme='dark'] :is(.theme-toggle, .motion-toggle):hover:not(:disabled) {
+  background: #405d48;
+}
+:root[data-theme='dark']
+  :is(
+    .topbar-slash,
+    .topbar-sun,
+    .eyebrow,
+    .room-count,
+    .hero-intro,
+    .office-hint,
+    .team-list summary
+  ) {
+  color: #a8c4a9;
+}
+:root[data-theme='dark']
+  :is(
+    .office-world,
+    .experience-panel,
+    .detail-panel,
+    .workflow,
+    .results-section,
+    .new-task-section,
+    .activity-list,
+    .ceo-consultation,
+    .consultation-context-grid > div
+  ) {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+:root[data-theme='dark'] .office-floor {
+  background: #25372b;
+  border-color: var(--line);
+}
+:root[data-theme='dark'] .floor-grid {
+  background-image:
+    linear-gradient(#3a5140 1px, transparent 1px),
+    linear-gradient(90deg, #3a5140 1px, transparent 1px);
+}
+:root[data-theme='dark'] .agent-room,
+:root[data-theme='dark'] .agent-room:nth-child(1) {
+  background: linear-gradient(180deg, #314536 0 71%, #29392e 71% 100%);
+  border-color: #66826c;
+  color: var(--ink);
+  box-shadow:
+    0 5px 0 #203126,
+    0 14px 26px #08110955;
+}
+:root[data-theme='dark'] .agent-room.selected {
+  border-color: #b7dcae;
+  box-shadow:
+    0 0 0 3px #648c69,
+    0 14px 26px #08110955;
+}
+:root[data-theme='dark']
+  :is(
+    .room-label,
+    .room-copy p,
+    .room-copy .room-title,
+    .room-copy .room-current,
+    .room-agent-status,
+    .floor-footer
+  ) {
+  color: #d1dfce;
+}
+:root[data-theme='dark'] .room-label > span {
+  background: #4d6651;
+  color: #e7f3e4;
+}
+:root[data-theme='dark'] .room-speech {
+  background: #263b2d;
+  border-color: #81a184;
+  color: var(--ink);
+}
+:root[data-theme='dark'] .room-speech[data-tone='done'] {
+  background: #304b3a;
+}
+:root[data-theme='dark'] .room-speech[data-tone='blocked'] {
+  background: #50392f;
+  border-color: #c18a71;
+}
+:root[data-theme='dark'] .detail-list {
+  background: #2e4333;
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .live-status-card,
+    .workflow-current,
+    .dispatch-summary,
+    .request-context,
+    .detail-input-context,
+    .current-run-summary,
+    .detail-work,
+    .detail-output pre,
+    .execution-progress,
+    .followup-form,
+    .request-options,
+    .project-history,
+    .history-reference,
+    .request-review,
+    .consultation-input,
+    .consultation-instruction,
+    .automatic-dispatch-note
+  ) {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .current-run-summary .run-text,
+    .workflow-current small,
+    .dispatch-summary,
+    .detail-work,
+    .detail-output pre,
+    .automatic-dispatch-note,
+    .result-task-body,
+    .result-task-preview,
+    .result-task-meta,
+    .office-world h3
+  ) {
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .current-run-summary .run-meta,
+    .workspace-field small,
+    .project-picker small,
+    .request-context small,
+    .talk-message small
+  ) {
+  color: #b9cbb8;
+}
+:root[data-theme='dark']
+  :is(
+    .floor-live-status,
+    .run-status-pill,
+    .detail-status,
+    .workflow-node,
+    .result-role,
+    .final-result-card,
+    .talk-message,
+    .settings-dialog-v2 .settings-badge
+  ) {
+  background: #304436;
+  border-color: #607b67;
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .floor-live-status.is-working,
+    .workflow-node.is-revise,
+    .execution-progress.is-stale,
+    .detail-status.working,
+    .talk-message.from-user,
+    .room-speech[data-tone='working']
+  ) {
+  background: #493c2a;
+  border-color: #a78557;
+  color: #ffe5b8;
+}
+:root[data-theme='dark']
+  :is(
+    .workflow-node.is-active,
+    .workflow-node.is-done,
+    .run-status-pill.completed,
+    .run-status-pill.running,
+    .result-role.is-selected
+  ) {
+  background: #36513d;
+  border-color: #91c29a;
+  color: #f1fff0;
+  box-shadow: 0 0 0 2px #466c4f;
+}
+:root[data-theme='dark']
+  :is(
+    .workflow-node.is-skipped,
+    .workflow-node small,
+    .workflow-parallel,
+    .workflow-branch,
+    .dispatch-skipped
+  ) {
+  color: #bbcbba;
+}
+:root[data-theme='dark'] :is(.workflow-branch, .dispatch-skipped) {
+  border-color: var(--line);
+}
+:root[data-theme='dark']
+  :is(
+    .workflow-error,
+    .progress-warning,
+    .form-message.error,
+    .current-run-summary .run-error,
+    #followup-message
+  ) {
+  color: #ffbaaa;
+}
+:root[data-theme='dark'] :is(.form-message.success, .settings-dialog-v2 .provider-ok) {
+  color: #a9dfae;
+}
+:root[data-theme='dark']
+  :is(
+    .final-result-card pre,
+    .talk-message pre,
+    .result-task-content,
+    .execution-stats span,
+    .provider-card code
+  ) {
+  background: #1d2a22;
+  border-color: var(--line);
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .final-result-card,
+    .talk-message,
+    .result-role,
+    .request-review,
+    .project-history,
+    .history-reference,
+    .request-options
+  ) {
+  border-color: #5a7560;
+}
+:root[data-theme='dark'] .talk-message.from-user {
+  border-left-color: #d6a476;
+}
+:root[data-theme='dark'] :is(.acceptance-state, .brief-attention) {
+  border-color: var(--line);
+}
+
+/* Forms and selected options retain their own surface and visible keyboard focus. */
+:root[data-theme='dark'] :is(input, textarea, select) {
+  background: #18241c;
+  color: var(--ink);
+  border-color: #698571;
+}
+:root[data-theme='dark'] :is(input, textarea)::placeholder {
+  color: #a8b9a8;
+}
+:root[data-theme='dark']
+  :is(
+    .new-task-section input,
+    .new-task-section textarea,
+    .new-task-section select,
+    .followup-form textarea,
+    .experience-panel select,
+    .results-section > label select,
+    .office-render-choice select
+  ) {
+  background: #18241c;
+  color: var(--ink);
+  border: 1px solid #698571;
+}
+:root[data-theme='dark'] :is(button, a, input, textarea, select, summary):focus-visible {
+  outline: 3px solid #ffd29d;
+  outline-offset: 3px;
+}
+:root[data-theme='dark']
+  :is(.new-task-section input, .new-task-section textarea, .new-task-section select):focus {
+  border-color: #b9dfa9;
+  box-shadow: 0 0 0 3px #6b8f66;
+}
+:root[data-theme='dark'] :is(.primary-button, .settings-dialog-v2 #settings-save:not(:disabled)) {
+  background: #a5d2a6;
+  color: #17271c;
+}
+:root[data-theme='dark'] .primary-button:hover {
+  background: #bbe4ba;
+}
+:root[data-theme='dark'] .button-arrow {
+  background: #7db787;
+}
+:root[data-theme='dark'] .cancel-button {
+  background: #4b302e;
+  border-color: #b77e75;
+  color: #ffd2c9;
+}
+
+/* Darken the 3D frame without recoloring the room or its characters. */
+:root[data-theme='dark'] .three-office {
+  border-color: #617463;
+  background: linear-gradient(145deg, #34463a, #293c30 55%, #263a30);
+  box-shadow:
+    inset 0 2px 10px #111c1599,
+    0 18px 42px #0b130d77;
+}
+:root[data-theme='dark'] .three-office__canvas canvas {
+  filter: brightness(0.82) saturate(0.93);
+}
+:root[data-theme='dark']
+  :is(
+    .three-office__engine,
+    .three-office__room-label,
+    .three-office__agent,
+    .three-office__bubble,
+    .three-office__fallback,
+    .three-office__fallback-agent
+  ) {
+  background: #26392d;
+  border-color: #78917d;
+  color: #eef6eb;
+}
+:root[data-theme='dark']
+  :is(
+    .three-office__agent:hover,
+    .three-office__agent.is-selected,
+    .three-office__agent:focus-visible,
+    .three-office__fallback-agent[aria-pressed='true']
+  ) {
+  background: #45614a;
+  border-color: #ffd29d;
+}
+:root[data-theme='dark'] .three-office__bubble::after {
+  border-color: #78917d;
+}
+:root[data-theme='dark'] .three-office__bubble.is-selected {
+  border-color: #ffd29d;
+}
+:root[data-theme='dark'] .three-office__bubble[data-status='done'] strong {
+  color: #b9c6ff;
+}
+:root[data-theme='dark'] .three-office__bubble[data-status='blocked'] strong {
+  color: #ffbaa1;
+}
+:root[data-theme='dark'] .three-office__bubble strong {
+  color: #bce9c3;
+}
+
+/* The settings dialog is created by JavaScript and lives outside the app shell. */
+:root[data-theme='dark'] :is(.settings-dialog, .settings-dialog-v2) {
+  background: #1d2921;
+  border-color: var(--line);
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .settings-dialog-v2 .settings-header,
+    .settings-dialog-v2 .settings-footer,
+    .settings-dialog-v2 .settings-panel,
+    .settings-dialog-v2 .settings-global,
+    .settings-dialog-v2 #agent-editor,
+    .settings-dialog-v2 .settings-duty,
+    .settings-dialog-v2 .settings-advanced,
+    .settings-dialog-v2 .settings-global-current,
+    .settings-dialog-v2 #global-proposal,
+    .settings-dialog-v2 .provider-card,
+    .settings-dialog-v2 .settings-global-row,
+    .settings-dialog-v2 #settings-agent-list,
+    .provider-card
+  ) {
+  background: transparent;
+  border-color: #526b58;
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .settings-dialog button,
+    .settings-dialog-v2 .settings-jumps a,
+    .settings-dialog-v2 #settings-agent-list button
+  ) {
+  background: #344a39;
+  border-color: #6a8a71;
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .settings-dialog-v2 #settings-agent-list button[aria-pressed='true'],
+    #settings-agent-list button[aria-pressed='true']
+  ) {
+  background: #45664b;
+  border-color: #b2dcad;
+}
+:root[data-theme='dark']
+  :is(
+    .settings-dialog-v2 .settings-field input,
+    .settings-dialog-v2 .settings-field select,
+    .settings-dialog-v2 .settings-field textarea,
+    #agent-editor input,
+    #agent-editor textarea,
+    #agent-editor select
+  ) {
+  background: #18241c;
+  border-color: #698571;
+  color: var(--ink);
+}
+:root[data-theme='dark']
+  :is(
+    .settings-dialog-v2 .settings-panel > p,
+    .settings-dialog-v2 .settings-field,
+    .settings-dialog-v2 .settings-field-hint,
+    .settings-dialog-v2 .settings-duty p,
+    .settings-dialog-v2 .settings-duty dt,
+    .settings-dialog-v2 .settings-footnote,
+    .settings-dialog-v2 .settings-global-current dt,
+    .settings-dialog-v2 #global-proposal p,
+    .settings-dialog-v2 .settings-add-row,
+    .settings-dialog-v2 #settings-agent-list button span,
+    .settings-dialog-v2 .settings-section-heading h3 span
+  ) {
+  color: #c1d1bf;
+}
+:root[data-theme='dark']
+  :is(
+    .settings-dialog-v2 .settings-badge.is-dirty,
+    .settings-dialog-v2 .settings-badge-muted,
+    .settings-dialog-v2 .settings-capability-note
+  ) {
+  background: #3a4b39;
+  color: #e2eecb;
+}
+:root[data-theme='dark']
+  :is(
+    .settings-dialog-v2 .settings-advanced summary,
+    .settings-dialog-v2 #global-proposal summary,
+    .settings-dialog-v2 .settings-global-current dd
+  ) {
+  color: #dcf0d9;
+}
+:root[data-theme='dark'] .settings-dialog-v2 .settings-remove {
+  background: #4b302e;
+  border-color: #b77e75;
+  color: #ffd2c9;
+}
+:root[data-theme='dark'] .settings-dialog-v2 #settings-message[data-error='true'] {
+  color: #ffbaaa;
+}

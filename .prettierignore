@@ -1,0 +1,9 @@
+node_modules/
+.data/
+workspace/
+package-lock.json
+*.png
+
+public/app.js
+
+public/styles.css

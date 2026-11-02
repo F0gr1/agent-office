@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f7f5ed" />
+    <script src="./theme-init.js"></script>
+    <title>Agent Office — AIチームの作業室</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="オフィスの操作">
+        <a class="brand" href="#office" aria-label="Agent Office のホーム">
+          <span class="brand-mark" aria-hidden="true"
+            ><span></span><span></span><span></span><span></span
+          ></span>
+          <span class="brand-copy"
+            ><strong>agent office</strong><small>AIチームの作業室</small></span
+          >
+        </a>
+
+        <div class="sidebar-scroll">
+          <div class="rail-label">オフィス</div>
+          <div class="workspace-identity">
+            <div class="workspace-icon" aria-hidden="true">⌂</div>
+            <div>
+              <strong>あなたのオフィス</strong><span id="team-size-label">9人のエージェント</span>
+            </div>
+            <span class="identity-chevron" aria-hidden="true">⌄</span>
+          </div>
+
+          <div class="rail-label nav-label">画面</div>
+          <nav class="rail-nav" aria-label="ページ内メニュー">
+            <a href="#office" class="active"
+              ><span aria-hidden="true">▦</span> オフィス <span class="nav-shortcut">01</span></a
+            >
+            <a href="#new-task"
+              ><span aria-hidden="true">✎</span> 新しい依頼 <span class="nav-shortcut">02</span></a
+            >
+            <a href="#activity"
+              ><span aria-hidden="true">◷</span> 作業ログ <span class="nav-shortcut">03</span></a
+            >
+          </nav>
+          <button id="open-settings" type="button" aria-label="接続・エージェント設定">
+            ⚙ 設定
+          </button>
+
+          <section class="history-section" aria-labelledby="history-title">
+            <div class="section-topline">
+              <h2 id="history-title" class="rail-label">最近の依頼</h2>
+              <span id="history-count" class="count-badge">0</span>
+            </div>
+            <div id="run-history" class="run-history">
+              <p class="history-empty">まだ依頼はありません。</p>
+            </div>
+          </section>
+        </div>
+
+        <div class="rail-footer">
+          <div class="connection-indicator">
+            <span id="connection-dot" class="connection-dot"></span
+            ><span id="connection-label">接続を確認中</span>
+          </div>
+          <small>このMacで実行</small>
+        </div>
+      </aside>
+
+      <main id="office" class="main-content">
+        <div class="topbar">
+          <span>オフィス / 現在の状況</span>
+          <div class="topbar-right">
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
+              ☾ ダークモード: オフ
+            </button>
+            <button id="motion-toggle" class="motion-toggle" type="button" aria-pressed="false">
+              動きを止める</button
+            ><span id="today-label"></span><span class="topbar-sun" aria-hidden="true">✳</span>
+          </div>
+        </div>
+
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-title-wrap">
+            <h1 id="hero-title">オフィス</h1>
+            <p id="hero-intro" class="hero-intro">依頼の状況と担当の仕事を確認できます。</p>
+          </div>
+          <div class="hero-stamp" aria-hidden="true">
+            <span>OPEN<br />FOR<br />IDEAS</span><span class="stamp-star">✦</span>
+          </div>
+        </section>
+
+        <section id="workflow" class="workflow" aria-label="担当と仕事の流れ"></section>
+
+        <section class="results-section" aria-labelledby="results-title">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow small">成果の記録</p>
+              <h2 id="results-title">成果と確認</h2>
+            </div>
+          </div>
+          <p class="results-intro">
+            各回の担当・依頼内容・結果を確認できます。詳細を開くと全文を読めます。
+          </p>
+          <div id="run-results" class="run-results"></div>
+        </section>
+
+        <section class="office-section" aria-labelledby="office-title">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow small">オフィス</p>
+              <h2 id="office-title">
+                みんなのオフィス <span id="room-count" class="room-count">9 rooms</span>
+              </h2>
+            </div>
+            <div id="run-status-pill" class="run-status-pill idle">
+              <span class="pulse-dot"></span><span>準備中</span>
+            </div>
+          </div>
+          <p id="floor-live-status" class="floor-live-status" role="status" aria-live="polite">
+            接続を確認しています。
+          </p>
+          <section class="office-world" aria-label="3Dオフィス">
+            <div class="office-world-heading">
+              <div>
+                <h3 id="office-scene-title">4つの部屋</h3>
+              </div>
+              <span class="world-tag">部屋の表示</span>
+            </div>
+            <p class="office-world-guide">部屋の担当を選ぶと、現在の仕事と成果を確認できます。</p>
+            <label class="office-render-choice"
+              >描画方式
+              <select id="office-render-mode">
+                <option value="auto">自動（WebGPU優先）</option>
+                <option value="webgl2">WebGL2を指定</option>
+              </select></label
+            >
+            <p id="office-state-caption" class="floor-live-status">描画と担当状態を確認中です。</p>
+            <div id="office-scene" class="three-office"></div>
+          </section>
+          <details class="team-list">
+            <summary>全員の仕事内容を一覧で見る</summary>
+            <div class="office-floor" aria-label="9人のエージェントの作業状況">
+              <div class="floor-grid" aria-hidden="true"></div>
+              <div class="floor-top-decoration" aria-hidden="true">
+                <span class="window-pane"></span><span class="window-pane"></span
+                ><span class="window-pane"></span>
+              </div>
+              <div id="agent-rooms" class="agent-rooms"></div>
+              <div class="floor-footer">
+                <span class="floor-plant" aria-hidden="true">✿</span
+                ><span>依頼ごとに担当を選び、結果を記録します</span
+                ><span class="floor-plant" aria-hidden="true">✿</span>
+              </div>
+            </div>
+          </details>
+          <p class="office-hint">
+            吹き出しは実際の作業状況を表示します。完了した担当の成果も確認できます。<span
+              aria-hidden="true"
+            >
+              ↗</span
+            >
+          </p>
+        </section>
+
+        <section
+          id="ceo-consultation"
+          class="ceo-consultation"
+          aria-label="社長室の相談"
+          hidden
+        ></section>
+
+        <section id="new-task" class="new-task-section" aria-labelledby="new-task-title">
+          <div class="task-heading">
+            <div class="task-heading-icon" aria-hidden="true">✦</div>
+            <div>
+              <h2 id="new-task-title">新しい依頼</h2>
+            </div>
+          </div>
+          <form id="task-form" novalidate>
+            <label for="task-kind">依頼の種類</label>
+            <select id="task-kind" name="taskKind">
+              <option value="ordinary">通常の依頼</option>
+              <option value="project-setup">新規プロジェクトの準備</option>
+            </select>
+            <div id="project-setup-fields" class="project-setup-fields" hidden>
+              <label for="project-purpose">新規プロジェクトの目的</label>
+              <textarea
+                id="project-purpose"
+                rows="2"
+                maxlength="3000"
+                placeholder="例：RSSを作りたい。今回は開発を始める前の準備だけ。"
+              ></textarea>
+              <label for="project-undecided-tech">未決の技術・条件（任意）</label>
+              <textarea
+                id="project-undecided-tech"
+                rows="2"
+                maxlength="3000"
+                placeholder="未決のままで構いません"
+              ></textarea>
+              <p class="project-scope">
+                準備先には下の「作業するフォルダ」を使います。既存の絶対パスを明示してください。AGENTS.mdと必要なプロジェクトSkillを確認・準備します。Skill候補は調査後に判断し、取得不能な資料は未確認として報告します。
+              </p>
+            </div>
+            <label for="task-instruction">何をしてほしいですか？</label>
+            <textarea
+              id="task-instruction"
+              name="instruction"
+              rows="3"
+              maxlength="20000"
+              placeholder="例：このプロジェクトの構成を調べて、改善案をまとめてください"
+              required
+            ></textarea>
+            <div class="attachment-editor" id="task-dropzone">
+              <label class="attachment-pick" for="task-attachments">📎 ファイルを添付</label>
+              <input
+                id="task-attachments"
+                type="file"
+                multiple
+                accept=".png,.jpg,.jpeg,.webp,.txt,.md,.csv,.tsv,.json,.log,.pdf"
+              />
+              <span>ここにドロップ · 5ファイルまで／合計12MB</span>
+              <small
+                >画像はCodex接続で読み取ります（Claude未対応）。テキストは資料として渡します。PDFは保存・参照のみ。</small
+              >
+              <ul id="task-attachment-list" class="attachment-list" aria-live="polite"></ul>
+            </div>
+            <details class="request-options">
+              <summary>ほしい成果・完了条件・作業範囲を伝える（任意）</summary>
+              <label for="task-outcome">ほしい成果</label
+              ><textarea
+                id="task-outcome"
+                rows="2"
+                maxlength="4000"
+                placeholder="例：実際に確認できる画面と変更点の説明"
+              ></textarea>
+              <label for="task-done">完了と判断する条件</label
+              ><textarea
+                id="task-done"
+                rows="2"
+                maxlength="4000"
+                placeholder="例：依頼作成から結果確認まで操作できる"
+              ></textarea>
+              <label for="task-scope">作業範囲への希望</label
+              ><textarea
+                id="task-scope"
+                rows="2"
+                maxlength="4000"
+                placeholder="例：対象プロジェクトの画面ファイルだけ変更する"
+              ></textarea>
+              <p class="project-scope">
+                ここで指定する範囲は担当への指示として渡します。OSや実行環境の権限設定は変更しません。
+              </p>
+            </details>
+            <div class="project-picker">
+              <div class="project-picker-heading">
+                <label for="task-project">プロジェクトを選ぶ</label
+                ><button id="refresh-projects" class="text-button" type="button">
+                  一覧を再読み込み
+                </button>
+              </div>
+              <select id="task-project" name="projectId">
+                <option value="">この作業室の専用フォルダ</option>
+                <option value="__custom">別のフォルダを指定</option></select
+              ><small id="project-source">登録済みプロジェクトの保存済み一覧を読み込み中…</small>
+            </div>
+            <section id="project-history" class="project-history" aria-label="Codexの関連履歴">
+              <p>プロジェクトを選ぶと、取得済みの関連履歴を確認できます。</p>
+            </section>
+            <div class="form-row">
+              <div class="workspace-field">
+                <label for="task-workspace">作業するフォルダ</label
+                ><input
+                  id="task-workspace"
+                  name="workspace"
+                  type="text"
+                  spellcheck="false"
+                  autocomplete="off"
+                  placeholder="/absolute/path/to/project"
+                  required
+                  readonly
+                /><small id="project-path">選択したプロジェクトの場所を表示します。</small>
+              </div>
+              <div class="mode-field">
+                <label for="task-mode">進め方</label
+                ><select id="task-mode" name="mode" aria-describedby="mode-explainer">
+                  <option value="economy" selected>節約（おすすめ）</option>
+                  <option value="standard">スタンダード</option>
+                  <option value="careful">じっくり確認</option>
+                </select>
+              </div>
+            </div>
+            <p class="project-scope">
+              このプロジェクトのコード・資料・AGENTS.mdを参照し、実装担当が編集します。過去チャットは自動参照しません。
+            </p>
+            <p class="automatic-dispatch-note">
+              指揮官が依頼を読み、必要な担当だけを選びます。担当と選定理由は依頼後に表示します。
+            </p>
+            <p id="runtime-update-note" class="mode-explainer" hidden>
+              実行中の依頼を保護するため、節約モードは作業終了後のアプリ再起動で有効になります。
+            </p>
+            <p id="mode-explainer" class="mode-explainer">
+              進め方に応じて、参加する担当のモデルと推論強度を調整します。各担当の設定は設定画面で変更できます。
+            </p>
+            <div class="form-bottom">
+              <p id="form-message" class="form-message" role="status" aria-live="polite">
+                指揮官が最終OKを出したら完了します。未解決なら差戻し、修正は最大3回です。
+              </p>
+              <button id="submit-task" class="primary-button" type="submit">
+                <span>依頼前の確認へ</span><span class="button-arrow" aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </form>
+          <section
+            id="request-review"
+            class="request-review"
+            hidden
+            aria-label="送信前の確認"
+          ></section>
+        </section>
+
+        <section id="activity" class="activity-section" aria-labelledby="activity-title">
+          <div class="section-header activity-header">
+            <div>
+              <p class="eyebrow small">作業履歴</p>
+              <h2 id="activity-title">作業の記録</h2>
+            </div>
+            <span id="activity-run-label" class="activity-run-label">まだ記録はありません</span>
+          </div>
+          <ol id="activity-list" class="activity-list">
+            <li class="activity-empty">依頼が始まると、ここに進み具合が届きます。</li>
+          </ol>
+        </section>
+
+        <footer class="main-footer">Agent Office</footer>
+      </main>
+
+      <aside class="detail-panel" aria-label="選択中の担当の詳細">
+        <div class="detail-top">
+          <span>担当の記録</span><span class="detail-top-icon" aria-hidden="true">✳</span>
+        </div>
+        <div id="agent-detail" class="agent-detail"></div>
+        <div class="run-detail" aria-labelledby="run-detail-title">
+          <div class="divider"></div>
+          <p class="eyebrow small">依頼の詳細</p>
+          <h2 id="run-detail-title">今の依頼</h2>
+          <div id="current-run-summary" class="current-run-summary">
+            <p>まだ依頼はありません。下のフォームからチームへ仕事を届けられます。</p>
+          </div>
+          <button id="cancel-run" class="cancel-button" type="button" hidden>
+            この実行を中止する
+          </button>
+          <button id="open-followup" class="followup-button" type="button" hidden>
+            この依頼に修正・追加
+          </button>
+          <p id="followup-note" class="followup-note"></p>
+          <form id="followup-form" class="followup-form" hidden>
+            <h3>前の内容を引き継いで依頼</h3>
+            <p id="followup-source" class="followup-source"></p>
+            <p id="followup-inherited" class="followup-source"></p>
+            <p class="followup-note">
+              元の要件・担当の成果・指摘を引き継ぎます。指揮官が今回必要な担当を改めて選びます。
+            </p>
+            <label for="followup-instruction">修正・追加したいこと</label>
+            <textarea
+              id="followup-instruction"
+              rows="5"
+              maxlength="20000"
+              required
+              placeholder="例：ピコへ。前回指摘された入力エラーを修正し、追加でスマホ表示も確認してください。"
+            ></textarea>
+            <div class="attachment-editor" id="followup-dropzone">
+              <label class="attachment-pick" for="followup-attachments">📎 ファイルを添付</label>
+              <input
+                id="followup-attachments"
+                type="file"
+                multiple
+                accept=".png,.jpg,.jpeg,.webp,.txt,.md,.csv,.tsv,.json,.log,.pdf"
+              />
+              <span>ここにドロップ</span>
+              <small>前の添付も引き継ぎます。合計5ファイル・12MBまで。</small>
+              <ul id="followup-attachment-list" class="attachment-list" aria-live="polite"></ul>
+            </div>
+            <button id="submit-followup" class="primary-button" type="submit">
+              引き継いで依頼する
+            </button>
+            <button id="close-followup" class="followup-close" type="button">入力を閉じる</button>
+            <p id="followup-message" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="detail-bottom">
+          <span class="detail-bottom-icon" aria-hidden="true">✺</span>
+          <p>小さなチームで、<br />大きな一歩を。</p>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

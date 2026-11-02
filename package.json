@@ -1,0 +1,30 @@
+{
+  "name": "agent-office",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "build": "node scripts/build.mjs",
+    "prestart": "npm run build",
+    "desktop": "electron desktop/main.cjs",
+    "desktop:install-runtime": "node node_modules/electron/install.js",
+    "desktop:build": "npm run build && node scripts/package-desktop.mjs",
+    "desktop:smoke": "node scripts/desktop-smoke.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@electron/packager": "20.3.0",
+    "electron": "45.1.0",
+    "esbuild": "0.28.2",
+    "prettier": "3.6.2"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  }
+}
